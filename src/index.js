@@ -1,17 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HeaderBlock from './components/HeaderBlock';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const AppList = () => {
+  const items = ['item 1', 'item 2', 'item 3', 'item 4'];
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  return (
+    <ul>
+      { items.map(item => <li>{item}</li>) }
+      <li>{ items[0] }</li>
+      <li>{ items[1] }</li>
+    </ul>
+  )
+}
+
+const AppHeader = () => {
+  return (
+    <h1 className='header'>My header</h1>
+  )
+}
+
+const AppInput = () => {
+  const placeholder = 'Type text...';
+
+  return (
+    <label htmlFor='search'>
+      <input id='search' placeholder={placeholder} />
+    </label>
+  )
+}
+
+const App = () => {
+  return (
+    <>
+      <HeaderBlock />
+      <AppHeader />
+      <AppInput />
+      <AppList />
+      <AppHeader />
+      <AppList />
+    </>
+  )
+}
+
+
+ReactDOM.render(<App />, document.getElementById('root'))
