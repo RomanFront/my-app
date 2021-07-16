@@ -12,7 +12,3 @@
     background-color: #000;
     box-sizing: border-box;
 }
-.taskContainer > * {
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-}

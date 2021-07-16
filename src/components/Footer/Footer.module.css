@@ -5,6 +5,8 @@
     justify-content: center;
     align-items: center;
     height: 50px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 p {
     color: rgba(255, 255, 255, 0.822);
