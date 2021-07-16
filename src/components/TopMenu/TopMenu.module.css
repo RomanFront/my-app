@@ -1,0 +1,46 @@
+.topMenuContainer{
+    width: 100%;
+    z-index: 2;
+    box-sizing: border-box;
+}
+.topMenuWrapper {
+    margin: auto;
+    max-width: 925px;
+    height: 35px;
+    border-radius: 0 0 15px 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 4;
+}
+.logo {
+    height: 100%;
+    cursor: pointer;
+    flex-grow: 1;
+}
+img {
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.822;
+}
+img:hover {
+    opacity: 1;
+}
+a {
+    text-decoration: none;
+    margin: 0;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.822);
+    flex-grow: 1;
+    text-align: center;
+}
+a:hover {
+    color: #fff;
+}
