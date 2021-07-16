@@ -3,19 +3,31 @@ import s from './Card.module.css'
 
 class Card extends React.Component {
 
+    state = {
+        done: false,
+    }
+
     handleCardClick = () => {
-        console.log('####: it\'s mean', this.props.rus)
+        this.setState({
+            done: true,
+        })
     }
 
     render() {
-        const {eng, rus} = this.props;
+        const { eng, rus } = this.props;
+        const { done } = this.state;
+
+        const cardInnerClass = [s.cardInner];
+        if (done) {
+            cardInnerClass.push(s.done);
+        }
 
         return (
             <div 
                 className={s.card}
                 onClick={this.handleCardClick}
                 >
-                <div className={s.cardInner}>
+                <div className={cardInnerClass.join(' ')}>
                     <div className={s.cardFront}>
                         {eng}
                     </div>
