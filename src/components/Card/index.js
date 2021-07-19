@@ -1,5 +1,6 @@
 import React from 'react';
-import s from './Card.module.css'
+import s from './Card.module.css';
+import cl from 'classnames';
 
 class Card extends React.Component {
 
@@ -23,16 +24,12 @@ class Card extends React.Component {
         const { eng, rus } = this.props;
         const { done } = this.state;
 
-        const cardInnerClass = [s.cardInner];
-        if (done) {
-            cardInnerClass.push(s.done);
-        }
-
         return (
             <div 
                 className={s.card}
                 onClick={this.handleCardClick}
                 >
+                <div className={ cl(s.cardInner, { [s.done]: done }) }>
                 <div className={cardInnerClass.join(' ')}>
             <div className={s.card}>
                 <div className={s.cardInner}>
