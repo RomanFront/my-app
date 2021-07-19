@@ -15,6 +15,7 @@ class Card extends React.Component {
                 className={s.card}
                 onClick={this.handleCardClick}
                 >
+            <div className={s.card}>
                 <div className={s.cardInner}>
                     <div className={s.cardFront}>
                         {eng}
