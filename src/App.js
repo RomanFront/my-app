@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Header from './components/Header';
-import HeaderBlock from './components/HeaderBlock';
-import Paragraph from './components/Paragraph';
+// import Header from './components/Header';
+// import HeaderBlock from './components/HeaderBlock';
+// import Paragraph from './components/Paragraph';
 import TopMenu from './components/TopMenu';
 import TaskBlock from './components/TaskBlock';
 import MainContent from './components/MainContent';
@@ -54,7 +54,6 @@ class App extends Component {
   handleDeletedItem = (id) => {
     this.setState(({wordArr}) => {
       const idx = wordArr.findIndex(item => item.id === id);
-      console.log('####: idx', idx);
       const newWordArr = [
         ...wordArr.slice(0, idx),
         ...wordArr.slice(idx + 1)
@@ -64,12 +63,26 @@ class App extends Component {
       }
     })
   }
+  handleAddItem = (newWord, isAddDisabled) => {
+    if (!isAddDisabled) {
+      this.setState(({wordArr}) => {
+        const newWordArr = wordArr;
+        newWordArr.push(newWord)
+        return {
+          wordArr: newWordArr,
+        }
+      })
+    } else {
+      return
+    }
+    
+  }
 
   render() {
     const { wordArr } = this.state;
     return (
       <>
-        <HeaderBlock>
+        {/* <HeaderBlock>
           <Header>
             Время учить слова онлайн
           </Header>
@@ -78,8 +91,9 @@ class App extends Component {
           </Paragraph>
         </HeaderBlock>
         <CardList 
-          onDeletedItem={(id) => console.log('####: 3 level and item id = ', id)} 
-          item={wordArr} 
+          onAddItem={this.handleAddItem}
+          onDeletedItem={this.handleDeletedItem} 
+          item={wordArr}
         />
         <HeaderBlock hideBackground>
           <Header>
@@ -88,13 +102,14 @@ class App extends Component {
           <Paragraph>
             Ну здорово же!
           </Paragraph>
-        </HeaderBlock>
+        </HeaderBlock> */}
         <TaskBlock>
           <TopMenu />
           <MainContent>
             <CardList
+              onAddItem={this.handleAddItem}
               onDeletedItem={this.handleDeletedItem} 
-              item={wordArr}             
+              item={wordArr}
             />
           </MainContent>
           <Footer />
