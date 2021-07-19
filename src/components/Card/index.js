@@ -8,6 +8,12 @@ class Card extends React.Component {
     }
 
     handleCardClick = () => {
+        if (this.state.done) {
+            this.setState({
+                done: false,
+            })
+            return
+        }
         this.setState({
             done: true,
         })

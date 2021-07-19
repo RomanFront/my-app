@@ -3,6 +3,10 @@ import Header from './components/Header';
 import HeaderBlock from './components/HeaderBlock';
 import Paragraph from './components/Paragraph';
 import Card from './components/Card';
+import TopMenu from './components/TopMenu';
+import TaskBlock from './components/TaskBlock';
+import MainContent from './components/MainContent';
+import Footer from './components/Footer';
 
 const wordsList = [
   {
@@ -61,6 +65,19 @@ const App = () => {
           Ну здорово же!
         </Paragraph>
       </HeaderBlock>
+      <TaskBlock>
+        <TopMenu />
+        <MainContent>
+          <div>
+            {
+              wordsList.map(({ eng, rus}, index) => (
+                <Card key={index} eng={eng} rus={rus} />
+              ))
+            }
+          </div>
+        </MainContent>
+        <Footer />
+      </TaskBlock>
     </>
   )
 }

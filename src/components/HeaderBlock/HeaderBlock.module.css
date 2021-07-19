@@ -50,3 +50,21 @@
 svg g {
     fill: red;
 }
+
+.topMenuContainer{
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+.topMenu {
+    margin: auto;
+    width: 100%;
+    max-width: 925px;
+    height: 35px;
+    border-radius: 0 0 15px 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
