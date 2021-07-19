@@ -42,12 +42,6 @@ class CardList extends Component {
         
     }
 
-    handleSubmitForm = (e, newWord) => {
-        e.preventDefault();
-        this.props.onAddItem(newWord);
-        console.log(newWord);
-    }
-
     handleIsSwappedClick = () => {
         this.setState((state) => {
             return {
@@ -68,8 +62,9 @@ class CardList extends Component {
             <div>
                 <form 
                     className={s.form}
-                    onSubmit={() => {
-                        onAddItem(newWord)
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        onAddItem(newWord, this.state.isAddDisabled)
                     }}
                 >
                     <input 
