@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Card.module.css';
 import cl from 'classnames';
-import { CheckSquareOutlined } from '@ant-design/icons'
+import { CheckSquareOutlined, DeleteOutlined } from '@ant-design/icons'
 
 class Card extends React.Component {
 
@@ -22,6 +22,11 @@ class Card extends React.Component {
                 isRemembered: !state.isRemembered
             }
         })
+    }
+
+    handleDeletedClick = () => {
+        console.log('####: 1 level');
+        this.props.onDeleted();
     }
 
     render() {
@@ -48,6 +53,9 @@ class Card extends React.Component {
                 </div>
                 <div className={s.icons}>
                     <CheckSquareOutlined onClick={this.handleIsRememberClick}/>
+                </div>
+                <div className={s.icons}>
+                    <DeleteOutlined onClick={this.handleDeletedClick}/>
                 </div>
             </div>
             
