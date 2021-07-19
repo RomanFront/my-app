@@ -50,6 +50,21 @@ class App extends Component {
   state = {
     wordArr: wordsList,
   }
+
+  handleDeletedItem = (id) => {
+    this.setState(({wordArr}) => {
+      const idx = wordArr.findIndex(item => item.id === id);
+      console.log('####: idx', idx);
+      const newWordArr = [
+        ...wordArr.slice(0, idx),
+        ...wordArr.slice(idx + 1)
+      ]
+      return {
+        wordArr: newWordArr,
+      }
+    })
+  }
+
   render() {
     const { wordArr } = this.state;
     return (
@@ -62,7 +77,10 @@ class App extends Component {
             Испольуйте карточки для запоминания и пополняйте активный словарный запас.
           </Paragraph>
         </HeaderBlock>
-        <CardList onDeletedItem={(id) => console.log('####: 3 level and item id = ', id)} item={wordArr} />
+        <CardList 
+          onDeletedItem={(id) => console.log('####: 3 level and item id = ', id)} 
+          item={wordArr} 
+        />
         <HeaderBlock hideBackground>
           <Header>
             Ещё один заголовок
@@ -74,7 +92,10 @@ class App extends Component {
         <TaskBlock>
           <TopMenu />
           <MainContent>
-            <CardList item={wordArr} />
+            <CardList
+              onDeletedItem={this.handleDeletedItem} 
+              item={wordArr}             
+            />
           </MainContent>
           <Footer />
         </TaskBlock>

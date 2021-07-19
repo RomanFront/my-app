@@ -13,7 +13,7 @@ const CardList = ({item = [], onDeletedItem}) => {
                     }}
                     key={id} 
                     eng={eng} 
-                    us={rus} />
+                    rus={rus} />
                 ))
             }
         </div>
