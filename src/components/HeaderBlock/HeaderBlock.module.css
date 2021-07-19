@@ -8,10 +8,10 @@
     position: relative;
     text-align: center;
 
+    background-image: url(background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-attachment: fixed;
     background-color: #000;
 }
 .cover:after {
