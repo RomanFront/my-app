@@ -8,6 +8,7 @@
     width: 170px;
     margin-right: 12px;
 }
+
 .cardInner {
     position: relative;
     background-color: transparent;
@@ -18,17 +19,28 @@
     transform-style: preserve-3d;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
-/* .cardInner:hover {
-    transform: rotateY(180deg);
-} */
-.cardFront{
+.cardFront {
+    height: 33px;
+    line-height: 32px;
+    width: 100%;
+    position: absolute;
     background-color: #fff;
     color: seagreen;
+    -webkit-backface-visibility: hidden;
 }
-.cardBack{
+.cardBack {
+    height: 33px;
+    line-height: 32px;
+    width: 100%;
+    position: absolute;
     background-color: seagreen;
     color: #fff;
-=======
+    -webkit-backface-visibility: hidden;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+.done {
+    transform: rotateY(180deg);
     margin: 5px;
     text-align: center;
     background-color: rgba(140, 255, 95, 0.548);
