@@ -28,6 +28,8 @@ class Card extends React.Component {
                 onClick={this.handleCardClick}
                 >
                 <div className={cardInnerClass.join(' ')}>
+            <div className={s.card}>
+                <div className={s.cardInner}>
                     <div className={s.cardFront}>
                         {eng}
                     </div>

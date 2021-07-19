@@ -41,4 +41,20 @@
 }
 .done {
     transform: rotateY(180deg);
+    margin: 5px;
+    text-align: center;
+    background-color: rgba(140, 255, 95, 0.548);
+    max-width: 450px;
+}
+.cardInner {
+    border: 2px rgba(98, 182, 65, 0.548) solid;
+}
+
+
+
+.cardFront{
+    color: rgb(95, 95, 255);
+}
+.cardBack{
+    color: rgb(255, 95, 95);
 }
