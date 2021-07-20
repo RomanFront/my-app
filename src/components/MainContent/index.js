@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './MainContent.module.css'
-import { SwapOutlined, PlusOutlined } from '@ant-design/icons'
+import { SwapOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 
 const MainContent = ({children}) => {
     return (
@@ -10,6 +10,14 @@ const MainContent = ({children}) => {
                     Нажимая на иконку "<SwapOutlined />" 
                     происходит отправка введенного слова на 
                     перевод.
+                    <br />
+                    <br />
+                    Нажимая на иконку "<PlusOutlined />" 
+                    происходит добавление карточки в базу данных. Нажать можно только после перевода.
+                    <br />
+                    <br />
+                    Нажимая на иконку "<DeleteOutlined />" 
+                    происходит безвозвратное удаление карточки из базы данных.
                     <br />
                     <br />
                     "Lorem ipsum dolor sit amet, consectetur 

@@ -1,77 +1,81 @@
 import React, { Component } from 'react';
-// import Header from './components/Header';
-// import HeaderBlock from './components/HeaderBlock';
-// import Paragraph from './components/Paragraph';
+import firebase from 'firebase';
 import TopMenu from './components/TopMenu';
 import TaskBlock from './components/TaskBlock';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import CardList from './components/CardList';
 
-const wordsList = [
-  {
-    eng: 'between',
-    rus: 'между',
-    id: 1,
-  },
-  {
-    eng: 'high',
-    rus: 'высокий',
-    id: 2,
-  },
-  {
-    eng: 'really',
-    rus: 'действительно',
-    id: 3,
-  },
-  {
-    eng: 'something',
-    rus: 'что-нибудь',
-    id: 4,
-  },
-  {
-    eng: 'most',
-    rus: 'большинство',
-    id: 5,
-  },
-  {
-    eng: 'out',
-    rus: 'из/вне',
-    id: 6,
-  },
-  {
-    eng: 'leave',
-    rus: 'покидать',
-    id: 7,
-  },
-]
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const database = firebase.database();
 
 class App extends Component {
   state = {
-    wordArr: wordsList,
+    wordArr: [],
+  }
+
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    database.ref('/cards/').once('value').then(res => {
+      console.log('####: res', res.val());
+      this.setState({
+        wordArr: res.val(),
+      });
+    });
+  }
+
+  setNewWord = (eng_value, rus_value) => {
+    database.ref('/cards/' + this.state.wordArr.length).set({
+      eng: eng_value,
+      rus: rus_value,
+      id: this.state.wordArr.length,
+    });
+    database.ref('/cards/').once('value').then(res => {
+      console.log('####: res', res.val());
+      this.setState({
+        wordArr: res.val(),
+      });
+    });
   }
 
   handleDeletedItem = (id) => {
-    this.setState(({wordArr}) => {
-      const idx = wordArr.findIndex(item => item.id === id);
-      const newWordArr = [
-        ...wordArr.slice(0, idx),
-        ...wordArr.slice(idx + 1)
-      ]
-      return {
-        wordArr: newWordArr,
-      }
-    })
+    database.ref('/cards/' + id).remove();
+    database.ref('/cards/').once('value').then(res => {
+      console.log('####: res', res.val());
+      this.setState({
+        wordArr: res.val(),
+      });
+    });
+
+
+    // this.setState(({wordArr}) => {
+    //   const idx = wordArr.findIndex(item => item.id === id);
+    //   const newWordArr = [
+    //     ...wordArr.slice(0, idx),
+    //     ...wordArr.slice(idx + 1)
+    //   ]
+    //   return {
+    //     wordArr: newWordArr,
+    //   }
+    // })
   }
   handleAddItem = (newWord, isAddDisabled) => {
     if (!isAddDisabled) {
-      this.setState(({wordArr}) => {
-        const newWordArr = wordArr;
-        newWordArr.push(newWord)
-        return {
-          wordArr: newWordArr,
-        }
-      })
+      this.setNewWord(newWord.eng, newWord.rus)
     } else {
       return
     }
@@ -82,27 +86,6 @@ class App extends Component {
     const { wordArr } = this.state;
     return (
       <>
-        {/* <HeaderBlock>
-          <Header>
-            Время учить слова онлайн
-          </Header>
-          <Paragraph>
-            Испольуйте карточки для запоминания и пополняйте активный словарный запас.
-          </Paragraph>
-        </HeaderBlock>
-        <CardList 
-          onAddItem={this.handleAddItem}
-          onDeletedItem={this.handleDeletedItem} 
-          item={wordArr}
-        />
-        <HeaderBlock hideBackground>
-          <Header>
-            Ещё один заголовок
-          </Header>
-          <Paragraph>
-            Ну здорово же!
-          </Paragraph>
-        </HeaderBlock> */}
         <TaskBlock>
           <TopMenu />
           <MainContent>
