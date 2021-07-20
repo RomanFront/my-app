@@ -20,6 +20,7 @@ input {
     margin-right: 15px;
     text-align: center;
     font-size: 18px;
+    font-family: inherit;
     color: seagreen;
 
     transition: all 0.3s;
@@ -45,7 +46,7 @@ button {
 }
 .isSwapped {
     background-color: seagreen;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff;
 }
 .isSwapped::placeholder {
     color: rgba(255, 255, 255, 0.8);

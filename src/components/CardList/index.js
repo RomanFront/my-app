@@ -3,6 +3,7 @@ import s from './CardList.module.css';
 import { SwapOutlined, PlusOutlined } from '@ant-design/icons'
 import cl from 'classnames';
 import Card from '../Card';
+import getTranslateWord from '../../services/yandex-dictionary';
 
 class CardList extends Component {
 
@@ -42,11 +43,13 @@ class CardList extends Component {
         
     }
 
-    handleIsSwappedClick = () => {
+    handleIsSwappedClick = async () => {
+        const getWord = await getTranslateWord(this.state.eng_value)
         this.setState((state) => {
             return {
                 isSwapped: !state.isSwapped,
-                value: this.state.isSwapped ? this.state.eng_value : this.state.rus_value,
+                value: state.isSwapped ? state.eng_value : state.rus_value,
+                rus_value: state.eng_value ? getWord[0].tr[0].text : state.rus_value,
             }
         });
     }
