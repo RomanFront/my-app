@@ -1,8 +1,13 @@
 .root {
     display: flex;
     align-items: center;
-    justify-content: space-around;
     margin-bottom: 15px;
+}
+.root > *{
+    margin-right: 15px;
+}
+.root > *:last-child {
+    margin-right: 0;
 }
 .card {
     font-size: 18px;
@@ -10,12 +15,11 @@
     cursor: pointer;
     perspective: 1000px;
     height: 33px;
-    width: 170px;
+    width: 200px;
 }
 .icons {
     font-size: 26px;
     cursor: pointer;
-
 }
 .icons:hover {
     color: #1BB95E;    
