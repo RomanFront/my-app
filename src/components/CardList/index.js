@@ -5,12 +5,7 @@ import cl from 'classnames';
 import Card from '../Card';
 import getTranslateWord from '../../services/yandex-dictionary';
 
-let engValue = '';
-let rusValue = '';
-let isSwapped = false;
-
 class CardList extends Component {
-
 
     state = {
         value: '',
@@ -20,21 +15,23 @@ class CardList extends Component {
         isSwapped: false,
     }
 
-    handleInputChange = (e) => {        
+    handleInputChange = (e) => {
+        let { eng_value, rus_value, isSwapped } = this.state;
+        
         if (!isSwapped) {
             this.setState({
                 value: e.target.value,
                 eng_value: e.target.value,
             });
-            engValue = e.target.value;
+            eng_value = e.target.value;
         } else {
             this.setState({
                 value: e.target.value,
                 rus_value: e.target.value,
             });
-            rusValue = e.target.value;
+            rus_value = e.target.value;
         }
-        if (engValue && rusValue) {
+        if (eng_value && rus_value) {
             this.setState(() => {
                 return {
                     isAddDisabled: false,
@@ -46,15 +43,15 @@ class CardList extends Component {
                     isAddDisabled: true,
                 }
             });
-        }
-        
+        }        
     }
 
     handleIsSwappedClick = async () => {
-        const getWord = await getTranslateWord(engValue)
+        let { eng_value, rus_value, isSwapped } = this.state;
+        const getWord = await getTranslateWord(eng_value)
         isSwapped = !isSwapped;
-        if (engValue) {
-            rusValue = getWord[0].tr[0].text;
+        if (eng_value) {
+            rus_value = getWord[0].tr[0].text;
             this.setState(() => {
                 return {
                     isAddDisabled: false,
@@ -64,18 +61,19 @@ class CardList extends Component {
         this.setState((state) => {
             return {
                 isSwapped: !state.isSwapped,
-                value: isSwapped ? rusValue : engValue,
-                rus_value: rusValue,
+                value: isSwapped ? rus_value : eng_value,
+                rus_value: rus_value,
             }
         });
         
     }
 
     render() {
+        let { eng_value, rus_value } = this.state;
         const {item = [], onDeletedItem, onAddItem} = this.props;
         const newWord = {
-            eng: engValue,
-            rus: rusValue,
+            eng: eng_value,
+            rus: rus_value,
         }
 
         return (
