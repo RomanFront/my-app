@@ -11,7 +11,7 @@
 .form > *:last-child {
     margin-right: 0;
 }
-input {
+.form input {
     margin: 0;
     border: none;
     padding: 0;
@@ -27,35 +27,35 @@ input {
     perspective: 1000px;
     transform-style: preserve-3d;
 }
-input:focus {
+.form input:focus {
     outline: none;
 }
-button {
+.form button {
     margin: 0;
     border: none;
     padding: 0;
     background-color: transparent;
     color: rgba(255, 255, 255, 0.8);
 }
-.icons {
+.form .icons {
     font-size: 26px;
     cursor: pointer;
 }
-.icons:hover {
+.form .icons:hover {
     color: #1BB95E;    
 }
-.isSwapped {
+.form .isSwapped {
     background-color: seagreen;
     color: #fff;
 }
-.isSwapped::placeholder {
+.form .isSwapped::placeholder {
     color: rgba(255, 255, 255, 0.8);
 }
-.isDisabled * {
+.form .isDisabled * {
     color: rgba(255, 255, 255, 0.322);
     cursor: default;
 }
-.isDisabled * {
+.form .isDisabled * {
     color: rgba(255, 255, 255, 0.322);
     cursor: default;
 }

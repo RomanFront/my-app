@@ -1,9 +1,10 @@
-.topMenuContainer{
+.topMenuContainer {
     width: 100%;
     z-index: 2;
     box-sizing: border-box;
 }
 .topMenuWrapper {
+    box-sizing: content-box;
     margin: auto;
     max-width: 925px;
     height: 35px;
@@ -27,15 +28,15 @@
     cursor: pointer;
     flex-grow: 1;
 }
-img {
+.topMenuContainer img {
     height: 100%;
     object-fit: contain;
     opacity: 0.822;
 }
-img:hover {
+.topMenuContainer img:hover {
     opacity: 1;
 }
-a {
+.topMenuContainer a {
     text-decoration: none;
     margin: 0;
     font-size: 20px;
@@ -43,6 +44,6 @@ a {
     flex-grow: 1;
     text-align: center;
 }
-a:hover {
+.topMenuContainer a:hover {
     color: #fff;
 }

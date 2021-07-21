@@ -1,4 +1,4 @@
-.footer{
+.footer {
     padding: 15px 0;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
@@ -8,6 +8,9 @@
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
 }
-p {
+.footer p {
+    color: rgba(255, 255, 255, 0.822);
+}
+.footer a {
     color: rgba(255, 255, 255, 0.822);
 }
