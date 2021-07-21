@@ -14,3 +14,6 @@
 .footer a {
     color: rgba(255, 255, 255, 0.822);
 }
+.footer a:hover {
+    color: rgb(255, 255, 255);
+}
