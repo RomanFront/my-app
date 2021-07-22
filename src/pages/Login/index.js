@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import { Layout, Form, Input, Button } from 'antd';
 import s from './Login.module.css';
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css';
 import { fire } from '../../services/firebase';
 
 const { Content } = Layout;
 
 class LoginPage extends Component {
-  onFinish = ({email, password}) => {
-    fire
+  onFinish = ({email, password, type}) => {
+    if (type == 'signIn') {
+      fire
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log('####: res', res);
       })
+    } else {
+      fire
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(res => {
+          console.log('####: res', res);
+        })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ..
+  });
+    }
+    
   }
 
   onFinishFailed = (errorMsg) => {
@@ -21,6 +36,7 @@ class LoginPage extends Component {
   }
 
   renderForm = () => {
+    let type;
     return (
       <Form
         name="basic"
@@ -47,8 +63,11 @@ class LoginPage extends Component {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" onClick={type = 'signIn'} htmlType="submit">
             Submit
+          </Button>
+          <Button style={{marginLeft: '20px'}} onClick={type = 'signUp'} type="primary" htmlType="submit">
+            Register
           </Button>
         </Form.Item>
       </Form>
@@ -62,6 +81,11 @@ class LoginPage extends Component {
         <Content>
           <div className={s.root}>
             <div className={s.form_wrap}>
+              123123123@gmail.com : testtest
+              <br />
+              first@gmail.com : testtest
+              <br />
+              <br />
               { this.renderForm() }
             </div>
           </div>

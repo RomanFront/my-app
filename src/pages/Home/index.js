@@ -41,7 +41,10 @@ class HomePage extends Component {
     } else {
       return
     }
-    
+  }
+
+  handleHomeClick = () => {
+    this.props.onHomeClick()
   }
 
   render() {
@@ -50,7 +53,7 @@ class HomePage extends Component {
     return (
       <>
         <TaskBlock>
-          <TopMenu />
+          <TopMenu onHomeClick={this.handleHomeClick}/>
           <MainContent>
             <CardList
               onAddItem={this.handleAddItem}

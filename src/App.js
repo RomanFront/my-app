@@ -25,6 +25,17 @@ class App extends Component {
     });
   }
 
+  handleHomeClick = () => {
+    fire.auth().signOut().then(() => {
+      this.setState({
+        user: false,
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+    console.log(this.state)
+  }
+
   render() {
     const { user } = this.state;
     
@@ -36,9 +47,11 @@ class App extends Component {
       );
     }
 
+    console.log(this.state);
+
     return (
       <>
-        {user ? <HomePage user={user} /> : <LoginPage />}
+        {user ? <HomePage user={user} onHomeClick={this.handleHomeClick}/> : <LoginPage />}
       </>
     )
   }

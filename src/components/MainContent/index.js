@@ -7,6 +7,9 @@ const MainContent = ({children}) => {
         <div className={s.mainContent}>
             <div className={s.text}>
                 <p>
+                    Чтобы выйти из пользователя, нажми на иконку дома в шапке сайта.
+                    <br />
+                    <br />
                     Нажимая на иконку "<SwapOutlined />" 
                     происходит отправка введенного слова на 
                     перевод.
