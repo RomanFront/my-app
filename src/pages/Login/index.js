@@ -7,26 +7,26 @@ import { fire } from '../../services/firebase';
 const { Content } = Layout;
 
 class LoginPage extends Component {
-  onFinish = ({email, password, type}) => {
-    if (type == 'signIn') {
+  onFinish = ({email, password}, type) => {
+    console.log(email, password, type);
+    if (type == 'signUp') {      
+      fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        console.log('####: res', res);
+      })
+      .catch((error) => {
+        console.log(error.code);
+        console.log(error.message);
+      });
+    } else {
       fire
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log('####: res', res);
       })
-    } else {
-      fire
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(res => {
-          console.log('####: res', res);
-        })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ..
-  });
     }
     
   }
@@ -36,14 +36,14 @@ class LoginPage extends Component {
   }
 
   renderForm = () => {
-    let type;
+    let type = 'signIn';
     return (
       <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         initialValues={{ remember: true }}
-        onFinish={this.onFinish}
+        onFinish={({email, password}) => this.onFinish({email, password}, type)}
         onFinishFailed={this.onFinishFailed}
       >
         <Form.Item
@@ -63,10 +63,13 @@ class LoginPage extends Component {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" onClick={type = 'signIn'} htmlType="submit">
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Button style={{marginLeft: '20px'}} onClick={type = 'signUp'} type="primary" htmlType="submit">
+          <Button style={{marginLeft: '20px'}} 
+          type="default" htmlType="submit" onClick={() => {
+            type = 'signUp';
+          }}>
             Register
           </Button>
         </Form.Item>
