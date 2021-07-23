@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
-import { fire } from './services/firebase'
 import { Spin } from 'antd';
 import s from './App.module.css';
+import TestContext from './context/testContext';
+import FirebaseContext from './context/firebaseContext';
 
 
 class App extends Component {
@@ -12,12 +13,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fire.auth().onAuthStateChanged(user => {
+    const { auth, setUserUid } = this.context;
+
+    auth.onAuthStateChanged((user) => {
+      console.log('onAuthStateChanged')
       if (user) {
+        setUserUid(user.uid);
         this.setState({
           user,
         });
       } else {
+        setUserUid(null);
         this.setState({
           user: false,
         });
@@ -26,7 +32,8 @@ class App extends Component {
   }
 
   handleHomeClick = () => {
-    fire.auth().signOut().then(() => {
+    const { auth } = this.context;
+    auth.signOut().then(() => {
       this.setState({
         user: false,
       });
@@ -51,10 +58,15 @@ class App extends Component {
 
     return (
       <>
-        {user ? <HomePage user={user} onHomeClick={this.handleHomeClick}/> : <LoginPage />}
+        {user ? (
+          <TestContext.Provider value={{uid: user.uid}}>
+            <HomePage user={user} onHomeClick={this.handleHomeClick}/>
+          </TestContext.Provider>
+        ) : <LoginPage />}
       </>
     )
   }
 }
+App.contextType = FirebaseContext;
 
 export default App;
