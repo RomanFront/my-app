@@ -15,6 +15,7 @@ class LoginPage extends Component {
       registerWithEmail(email, password)
       .then(res => {
         console.log('####: res', res);
+        this.props.history.push('/home');
       })
       .catch((error) => {
         console.log(error.code);
@@ -24,6 +25,7 @@ class LoginPage extends Component {
       signWithEmail(email, password)
         .then(res => {
           console.log('####: res', res);
+          this.props.history.push('/home');
         })
     }
   }

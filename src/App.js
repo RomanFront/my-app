@@ -5,6 +5,7 @@ import { Spin } from 'antd';
 import s from './App.module.css';
 import TestContext from './context/testContext';
 import FirebaseContext from './context/firebaseContext';
+import { BrowserRouter, Route } from 'react-router-dom'
 
 
 class App extends Component {
@@ -57,13 +58,14 @@ class App extends Component {
     console.log(this.state);
 
     return (
-      <>
-        {user ? (
-          <TestContext.Provider value={{uid: user.uid}}>
-            <HomePage user={user} onHomeClick={this.handleHomeClick}/>
-          </TestContext.Provider>
-        ) : <LoginPage />}
-      </>
+      <BrowserRouter>
+        <TestContext.Provider value={{uid: user.uid}}>
+          <>
+            <Route path='/' exact component={LoginPage}/>
+            <Route path='/home' render={() => (<HomePage user={user} onHomeClick={this.handleHomeClick}/>)}/>
+          </>
+        </TestContext.Provider>        
+      </BrowserRouter>
     )
   }
 }
