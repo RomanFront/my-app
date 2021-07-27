@@ -3,8 +3,8 @@ import s from './CardList.module.css';
 import { SwapOutlined, PlusOutlined } from '@ant-design/icons'
 import cl from 'classnames';
 import Card from '../Card';
+import { withRouter } from 'react-router-dom';
 import getTranslateWord from '../../services/yandex-dictionary';
-import TestContext from '../../context/testContext';
 
 class CardList extends Component {
 
@@ -86,9 +86,13 @@ class CardList extends Component {
         });
     }
 
+    handlePushClick = (id) => {
+        this.props.history.push(`/word/${id}`);
+    }
+
     render() {
         let { eng_value, rus_value } = this.state;
-        const {item = [], onDeletedItem, onAddItem} = this.props;
+        const {item = [], onDeletedItem, onPushItem, onAddItem} = this.props;
         const newWord = {
             eng: eng_value,
             rus: rus_value,
@@ -124,9 +128,12 @@ class CardList extends Component {
                             onDeleted={() => {
                                 onDeletedItem(id);
                             }}
-                            key={id} 
-                            eng={eng} 
-                            rus={rus} />
+                            onPush={() => {
+                                this.handlePushClick(id);
+                            }}
+                            key={id}
+                            eng={eng}
+                            rus={rus}/>
                         ))
                     }
                 </div>
@@ -134,6 +141,5 @@ class CardList extends Component {
         );
     }
 }
-CardList.contextType = TestContext;
 
-export default CardList;
+export default withRouter(CardList);

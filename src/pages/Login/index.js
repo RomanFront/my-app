@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Layout, Form, Input, Button } from 'antd';
 import s from './Login.module.css';
 import 'antd/dist/antd.css';
-import FirebaseContext from '../../context/firebaseContext';
+import { withFirebase } from '../../context/firebaseContext';
 
 const { Content } = Layout;
 
 class LoginPage extends Component {
   onFinish = ({email, password}, type) => {
-    const { signWithEmail, registerWithEmail } = this.context;
+    const { signWithEmail, registerWithEmail } = this.props.firebase;
 
     console.log(email, password, type);
     if (type === 'signUp') {
@@ -100,6 +100,5 @@ class LoginPage extends Component {
     )
   }
 }
-LoginPage.contextType = FirebaseContext;
 
-export default LoginPage;
+export default withFirebase(LoginPage);

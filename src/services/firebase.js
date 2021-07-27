@@ -27,9 +27,11 @@ class Firebase {
 
   signWithEmail = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
 
-  registerWithEmail = (email, password) => this.auth.createUserWithEmailAndPassword(email, password)
+  registerWithEmail = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
 
-  getUserCardsRef = () => this.database.ref(`/${this.userUid}/cards`)
+  getUserCardsRef = () => this.database.ref(`/${this.userUid}/cards`);
+
+  getUserCurrentCardRef = (id) => this.database.ref(`/${this.userUid}/cards/${id}`);
 }
 
 export default Firebase;
