@@ -5,7 +5,8 @@ import { Spin } from 'antd';
 import s from './App.module.css';
 import TestContext from './context/testContext';
 import FirebaseContext from './context/firebaseContext';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import { PrivateRoute } from './utils/privateRoute';
 
 
 class App extends Component {
@@ -20,11 +21,13 @@ class App extends Component {
       console.log('onAuthStateChanged')
       if (user) {
         setUserUid(user.uid);
+        localStorage.setItem('user', JSON.stringify(user.uid));
         this.setState({
           user,
         });
       } else {
         setUserUid(null);
+        localStorage.removeItem('user');
         this.setState({
           user: false,
         });
@@ -58,14 +61,12 @@ class App extends Component {
     console.log(this.state);
 
     return (
-      <BrowserRouter>
-        <TestContext.Provider value={{uid: user.uid}}>
-          <>
-            <Route path='/' exact component={LoginPage}/>
-            <Route path='/home' render={() => (<HomePage user={user} onHomeClick={this.handleHomeClick}/>)}/>
-          </>
-        </TestContext.Provider>        
-      </BrowserRouter>
+      <TestContext.Provider value={{uid: user.uid}}>
+        <>
+          <Route path='/' exact component={LoginPage}/>
+          <PrivateRoute path='/home' component={() => <HomePage user={user} onHomeClick={this.handleHomeClick}/>}/>
+        </>
+      </TestContext.Provider>
     )
   }
 }
