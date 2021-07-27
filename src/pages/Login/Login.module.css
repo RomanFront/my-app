@@ -1,0 +1,21 @@
+.root {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #000;
+}
+
+.form_wrap {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 25px 20px;
+    width: 100%;
+    max-width: 400px;
+}
