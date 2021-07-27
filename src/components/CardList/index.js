@@ -68,6 +68,23 @@ class CardList extends Component {
         
     }
 
+    handleAddClick = () => {
+        let { eng_value, rus_value} = this.state;
+        const newWord = {
+            eng: eng_value,
+            rus: rus_value,
+        }
+        this.props.onAddItem(newWord, this.state.isAddDisabled)
+        this.setState((state) => {
+            return {
+                isSwapped: !state.isSwapped,
+                value: '',
+                eng_value: '',
+                rus_value: '',
+            }
+        });
+    }
+
     render() {
         let { eng_value, rus_value } = this.state;
         const {item = [], onDeletedItem, onAddItem} = this.props;
@@ -96,7 +113,7 @@ class CardList extends Component {
                         <SwapOutlined onClick={this.handleIsSwappedClick} />
                     </div>
                     <div className={ cl(s.icons, { [s.isDisabled]: this.state.isAddDisabled }) }>
-                        <PlusOutlined onClick={() => {onAddItem(newWord, this.state.isAddDisabled)}} />
+                        <PlusOutlined onClick={this.handleAddClick} />
                     </div>
                 </form>
                 <div className={s.root}>
@@ -106,7 +123,7 @@ class CardList extends Component {
                             onDeleted={() => {
                                 onDeletedItem(id);
                             }}
-                            key={id} 
+                            id={id} 
                             eng={eng} 
                             rus={rus} />
                         ))
