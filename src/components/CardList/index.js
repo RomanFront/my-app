@@ -11,23 +11,27 @@ class CardList extends Component {
         value: '',
         eng_value: '',
         rus_value: '',
-        isSwapped: false,
         isAddDisabled: true,
+        isSwapped: false,
     }
 
-    handleInputChange = (e) => {        
-        if (!this.state.isSwapped) {
+    handleInputChange = (e) => {
+        let { eng_value, rus_value, isSwapped } = this.state;
+        
+        if (!isSwapped) {
             this.setState({
                 value: e.target.value,
                 eng_value: e.target.value,
             });
+            eng_value = e.target.value;
         } else {
             this.setState({
                 value: e.target.value,
                 rus_value: e.target.value,
             });
+            rus_value = e.target.value;
         }
-        if (this.state.eng_value && this.state.rus_value) {
+        if (eng_value && rus_value) {
             this.setState(() => {
                 return {
                     isAddDisabled: false,
@@ -39,26 +43,37 @@ class CardList extends Component {
                     isAddDisabled: true,
                 }
             });
-        }
-        
+        }        
     }
 
     handleIsSwappedClick = async () => {
-        const getWord = await getTranslateWord(this.state.eng_value)
+        let { eng_value, rus_value, isSwapped } = this.state;
+        const getWord = await getTranslateWord(eng_value)
+        isSwapped = !isSwapped;
+        if (eng_value) {
+            rus_value = getWord[0].tr[0].text;
+            this.setState(() => {
+                return {
+                    isAddDisabled: false,
+                }
+            });
+        }        
         this.setState((state) => {
             return {
                 isSwapped: !state.isSwapped,
-                value: state.isSwapped ? state.eng_value : state.rus_value,
-                rus_value: state.eng_value ? getWord[0].tr[0].text : state.rus_value,
+                value: isSwapped ? rus_value : eng_value,
+                rus_value: rus_value,
             }
         });
+        
     }
 
     render() {
+        let { eng_value, rus_value } = this.state;
         const {item = [], onDeletedItem, onAddItem} = this.props;
         const newWord = {
-            eng: this.state.eng_value,
-            rus: this.state.rus_value,
+            eng: eng_value,
+            rus: rus_value,
         }
 
         return (
