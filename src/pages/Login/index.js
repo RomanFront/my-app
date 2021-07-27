@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Layout, Form, Input, Button } from 'antd';
 import s from './Login.module.css';
 import 'antd/dist/antd.css';
-import { fire } from '../../services/firebase';
+import FirebaseContext from '../../context/firebaseContext';
 
 const { Content } = Layout;
 
 class LoginPage extends Component {
   onFinish = ({email, password}, type) => {
+    const { signWithEmail, registerWithEmail } = this.context;
+
     console.log(email, password, type);
-    if (type == 'signUp') {      
-      fire
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    if (type == 'signUp') {
+      registerWithEmail(email, password)
       .then(res => {
         console.log('####: res', res);
       })
@@ -21,14 +21,11 @@ class LoginPage extends Component {
         console.log(error.message);
       });
     } else {
-      fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(res => {
-        console.log('####: res', res);
-      })
+      signWithEmail(email, password)
+        .then(res => {
+          console.log('####: res', res);
+        })
     }
-    
   }
 
   onFinishFailed = (errorMsg) => {
@@ -99,5 +96,6 @@ class LoginPage extends Component {
     )
   }
 }
+LoginPage.contextType = FirebaseContext;
 
 export default LoginPage;

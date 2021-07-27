@@ -4,6 +4,7 @@ import { SwapOutlined, PlusOutlined } from '@ant-design/icons'
 import cl from 'classnames';
 import Card from '../Card';
 import getTranslateWord from '../../services/yandex-dictionary';
+// import TestContext from '../../context/testContext';
 
 class CardList extends Component {
 
@@ -133,5 +134,6 @@ class CardList extends Component {
         );
     }
 }
+// CardList.contextType = TestContext;
 
 export default CardList;

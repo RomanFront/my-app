@@ -4,7 +4,8 @@ import TaskBlock from '../../components/TaskBlock';
 import MainContent from '../../components/MainContent';
 import Footer from '../../components/Footer';
 import CardList from '../../components/CardList';
-import database from '../../services/firebase';
+import TestContext from '../../context/testContext';
+import FirebaseContext from '../../context/firebaseContext';
 
 class HomePage extends Component {
   state = {
@@ -14,7 +15,8 @@ class HomePage extends Component {
   urlRequest = `${this.props.user.uid}/cards/`
 
   componentDidMount() {
-    database.ref(this.urlRequest).on('value', res => {
+    const { getUserCardsRef } = this.context;
+    getUserCardsRef().on('value', res => {
       this.setState({
         wordArr: res.val() || [],
       });
@@ -22,6 +24,7 @@ class HomePage extends Component {
   }
 
   setNewWord = (eng_value, rus_value) => {
+    const { database } = this.context;
     database.ref(this.urlRequest + this.state.wordArr.length).set({
       eng: eng_value,
       rus: rus_value,
@@ -30,6 +33,7 @@ class HomePage extends Component {
   }
 
   handleDeletedItem = (id) => {
+    const { database } = this.context;
     const { wordArr } = this.state;
     const newWordArr = wordArr.filter(item => item.id !== id);
     database.ref(this.urlRequest).set(newWordArr);
@@ -55,11 +59,20 @@ class HomePage extends Component {
         <TaskBlock>
           <TopMenu onHomeClick={this.handleHomeClick}/>
           <MainContent>
-            <CardList
-              onAddItem={this.handleAddItem}
-              onDeletedItem={this.handleDeletedItem} 
-              item={wordArr}
-            />
+            <TestContext.Consumer>
+              {
+                (value) => {
+                  console.log(value);
+                  return (
+                    <CardList
+                      onAddItem={this.handleAddItem}
+                      onDeletedItem={this.handleDeletedItem} 
+                      item={wordArr}
+                    />
+                  )
+                }
+              }
+            </TestContext.Consumer>            
           </MainContent>
           <Footer />
         </TaskBlock>
@@ -67,5 +80,6 @@ class HomePage extends Component {
     )
   }
 }
+HomePage.contextType = FirebaseContext;
 
 export default HomePage;
