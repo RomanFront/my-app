@@ -123,7 +123,7 @@ class CardList extends Component {
                             onDeleted={() => {
                                 onDeletedItem(id);
                             }}
-                            id={id} 
+                            key={id} 
                             eng={eng} 
                             rus={rus} />
                         ))

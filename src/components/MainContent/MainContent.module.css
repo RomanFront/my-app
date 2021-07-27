@@ -13,10 +13,11 @@
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
 }
-.text {
+.mainContent .text {
     flex-grow: 2;
+    margin-right: 15px;
 }
-p {
+.mainContent p {
     margin: 0;
     padding: 0;
     max-width: 500px;

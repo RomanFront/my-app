@@ -11,51 +11,49 @@ class HomePage extends Component {
     wordArr: [],
   }
 
+  urlRequest = `${this.props.user.uid}/cards/`
+
   componentDidMount() {
-    database.ref('/cards/').once('value').then(res => {
+    database.ref(this.urlRequest).on('value', res => {
       this.setState({
-        wordArr: res.val(),
+        wordArr: res.val() || [],
       });
     });
   }
 
   setNewWord = (eng_value, rus_value) => {
-    database.ref('/cards/' + this.state.wordArr.length).set({
+    database.ref(this.urlRequest + this.state.wordArr.length).set({
       eng: eng_value,
       rus: rus_value,
       id: this.state.wordArr.length,
     });
-    database.ref('/cards/').once('value').then(res => {
-      this.setState({
-        wordArr: res.val(),
-      });
-    });
   }
 
   handleDeletedItem = (id) => {
-    console.log(id)
-    database.ref('/cards/' + id).remove();
-    database.ref('/cards/').once('value').then(res => {
-      this.setState({
-        wordArr: res.val(),
-      });
-    });
+    const { wordArr } = this.state;
+    const newWordArr = wordArr.filter(item => item.id !== id);
+    database.ref(this.urlRequest).set(newWordArr);
   }
+
   handleAddItem = (newWord, isAddDisabled) => {
     if (!isAddDisabled) {
       this.setNewWord(newWord.eng, newWord.rus)
     } else {
       return
     }
-    
+  }
+
+  handleHomeClick = () => {
+    this.props.onHomeClick()
   }
 
   render() {
     const { wordArr } = this.state;
+    
     return (
       <>
         <TaskBlock>
-          <TopMenu />
+          <TopMenu onHomeClick={this.handleHomeClick}/>
           <MainContent>
             <CardList
               onAddItem={this.handleAddItem}

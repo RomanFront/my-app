@@ -13,7 +13,6 @@ class App extends Component {
 
   componentDidMount() {
     fire.auth().onAuthStateChanged(user => {
-      console.log('####: user', user)
       if (user) {
         this.setState({
           user,
@@ -24,6 +23,17 @@ class App extends Component {
         });
       }
     });
+  }
+
+  handleHomeClick = () => {
+    fire.auth().signOut().then(() => {
+      this.setState({
+        user: false,
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+    console.log(this.state)
   }
 
   render() {
@@ -37,9 +47,11 @@ class App extends Component {
       );
     }
 
+    console.log(this.state);
+
     return (
       <>
-        {user ? <HomePage /> : <LoginPage />}
+        {user ? <HomePage user={user} onHomeClick={this.handleHomeClick}/> : <LoginPage />}
       </>
     )
   }
