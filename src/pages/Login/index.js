@@ -11,10 +11,11 @@ class LoginPage extends Component {
     const { signWithEmail, registerWithEmail } = this.context;
 
     console.log(email, password, type);
-    if (type == 'signUp') {
+    if (type === 'signUp') {
       registerWithEmail(email, password)
       .then(res => {
         console.log('####: res', res);
+        localStorage.setItem('user', JSON.stringify(res.user.uid));
         this.props.history.push('/home');
       })
       .catch((error) => {
@@ -25,6 +26,7 @@ class LoginPage extends Component {
       signWithEmail(email, password)
         .then(res => {
           console.log('####: res', res);
+          localStorage.setItem('user', JSON.stringify(res.user.uid));
           this.props.history.push('/home');
         })
     }
