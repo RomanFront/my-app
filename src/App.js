@@ -8,50 +8,44 @@ import { withFirebase } from './context/firebaseContext';
 import { Route } from 'react-router-dom'
 import { PrivateRoute } from './utils/privateRoute';
 import { BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from './actions';
+import { bindActionCreators } from 'redux';
 
 
 class App extends Component {
-  state = {
-    user: null,
-  }
-
   componentDidMount() {
     const { auth, setUserUid } = this.props.firebase;
+    const { addUserAction } = this.props;
 
     auth.onAuthStateChanged((user) => {
       console.log('onAuthStateChanged')
       if (user) {
         setUserUid(user.uid);
         localStorage.setItem('user', JSON.stringify(user.uid));
-        this.setState({
-          user,
-        });
+        addUserAction(user);
       } else {
         setUserUid(null);
         localStorage.removeItem('user');
-        this.setState({
-          user: false,
-        });
       }
     });
   }
 
   handleHomeClick = () => {
+    const { removeUserAction } = this.props;
     const { auth } = this.props.firebase;
     auth.signOut().then(() => {
-      this.setState({
-        user: false,
-      });
+      removeUserAction();
     }).catch((error) => {
       console.log(error);
     });
-    console.log(this.state)
   }
 
   render() {
-    const { user } = this.state;
+    const { userUid } = this.props;
+    console.log(this.props);
     
-    if (user === null) {
+    if (userUid === null) {
       return (
         <div className={s.loader_wrap}>
           <Spin size="large" />
@@ -59,13 +53,11 @@ class App extends Component {
       );
     }
 
-    console.log(this.state);
-
     return (
       <>
         <BrowserRouter>
           <Route path='/' exact component={LoginPage}/>
-          <PrivateRoute path='/home' component={() => <HomePage user={user} onHomeClick={this.handleHomeClick}/>}/>
+          <PrivateRoute path='/home' component={() => <HomePage userUid={userUid} onHomeClick={this.handleHomeClick}/>}/>
           <PrivateRoute path='/word/:id' component={CurrentCard}/>
         </BrowserRouter>
       </>
@@ -73,4 +65,14 @@ class App extends Component {
   }
 }
 
-export default withFirebase(App);
+const mapStateToProps = (state) => {
+  return {
+      userUid: state.user.userUid,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withFirebase(App));
