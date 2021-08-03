@@ -92,7 +92,7 @@ class CardList extends Component {
 
     render() {
         let { eng_value, rus_value } = this.state;
-        const {item = [], onDeletedItem, onPushItem, onAddItem} = this.props;
+        const {item = [], onDeletedItem, onAddItem} = this.props;
         const newWord = {
             eng: eng_value,
             rus: rus_value,
