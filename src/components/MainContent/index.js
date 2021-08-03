@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './MainContent.module.css'
 import { SwapOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 
+
 const MainContent = ({children}) => {
+    const [colorHue, setColorHue] = useState(0);
+
     return (
         <div className={s.mainContent}>
             <div className={s.text}>
-                <p>
+                <p style={{filter: `hue-rotate(${colorHue}deg)`}} onClick={() => setColorHue(colorHue + 30)}>
+                    Собственный хук: выдели текст несколько раз и заметишь, как меняется цвет.
+                    <br />
+                    <br />
                     Чтобы выйти из пользователя, нажми на иконку дома в шапке сайта.
                     <br />
                     <br />
