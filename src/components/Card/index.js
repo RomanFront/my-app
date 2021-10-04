@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Card.module.css';
 import cl from 'classnames';
-import { CheckSquareOutlined, DeleteOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import { CheckSquareOutlined, DeleteOutlined } from '@ant-design/icons'
 
 class Card extends React.Component {
 
@@ -27,12 +27,9 @@ class Card extends React.Component {
     handleDeletedClick = () => {
         this.props.onDeleted();
     }
-    handlePushClick = () => {
-        this.props.onPush();
-    }
 
     render() {
-        const { eng, rus, noPush=false } = this.props;
+        const { eng, rus } = this.props;
         const { done } = this.state;
 
         return (
@@ -59,15 +56,8 @@ class Card extends React.Component {
                 <div className={s.icons}>
                     <DeleteOutlined onClick={this.handleDeletedClick}/>
                 </div>
-                {
-                    !noPush ?
-                    <div className={s.icons}>
-                        <ArrowRightOutlined onClick={this.handlePushClick}/>
-                    </div>
-                    :
-                    ''
-                }                
-            </div>            
+            </div>
+            
         )
     }
 
