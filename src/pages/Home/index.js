@@ -60,15 +60,15 @@ class HomePage extends Component {
           <TopMenu onHomeClick={this.handleHomeClick}/>
           <MainContent>
             {
-            isBusy ? 
-            <Spin/> 
-            :
-            <CardList
-            onAddItem={this.handleAddItem}
-            onDeletedItem={this.handleDeletedItem}
-            onPushItem={this.handlePushItem}
-            item={items}
-            />
+              isBusy ? 
+                <Spin/> 
+              :
+                <CardList
+                onAddItem={this.handleAddItem}
+                onDeletedItem={this.handleDeletedItem}
+                onPushItem={this.handlePushItem}
+                item={items}
+                />
             }
           </MainContent>
           <Footer />

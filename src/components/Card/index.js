@@ -51,19 +51,6 @@ class Card extends React.Component {
                         <div className={s.cardBack}>
                             {rus}
                         </div>
-            <div 
-                className={s.card}
-                onClick={this.handleCardClick}
-                >
-                <div className={ cl(s.cardInner, { [s.done]: done }) }>
-                <div className={cardInnerClass.join(' ')}>
-            <div className={s.card}>
-                <div className={s.cardInner}>
-                    <div className={s.cardFront}>
-                        {eng}
-                    </div>
-                    <div className={s.cardBack}>
-                        {rus}
                     </div>
                 </div>
                 <div className={s.icons}>
